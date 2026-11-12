@@ -89,20 +89,34 @@
   }
   function drawPawn(parent,x,y,ci,ti,interactive=false){
     const crew=colors[ci], token=state.tokens[ci][ti], movable=state.current===ci&&state.legal.includes(ti)&&state.phase==='choose';
-    const g=boardNS('g',{class:`pawn${movable?' movable':''}${state.lastCapture===`${ci}-${ti}`?' caught':''}`,transform:`translate(${x} ${y})`,tabindex:movable?'0':'-1',role:movable?'button':undefined,'aria-label':`${crew.name} rogue ${ti+1}${movable?', tap to move':''}`,'data-ci':ci,'data-ti':ti},parent);
-    if(movable){const ring=boardNS('circle',{cx:0,cy:1,r:15,fill:'none',stroke:'#ffe390','stroke-width':1.5,'stroke-dasharray':'3 2'},g);}
-    boardNS('ellipse',{cx:0,cy:10,rx:11,ry:4,class:'pawn-shadow'},g);
-    // Tiny masked garden rascal, with a bright little knife prop in hand.
-    boardNS('path',{d:'M-8 9Q-8 2-6-2L-3-5H3L6-2Q8 2 8 9L5 12H-5Z',fill:crew.color,class:'body'} ,g);
-    boardNS('circle',{cx:0,cy:-8,r:5.2,fill:'#dbc7a0',class:'head'},g);
-    boardNS('path',{d:'M-5-8Q0-15 5-8L4-6H-4Z',fill:'#26362c'},g);
-    boardNS('path',{d:'M-5 1-10 5M5 1l8-5',stroke:crew.color,'stroke-width':3,'stroke-linecap':'round'},g);
-    // Hilt and silver blade, held away from the little character.
-    boardNS('path',{d:'M9-3l4-5 2-1-1 3-4 5',fill:'#d9e0d1',stroke:'#fff0cd','stroke-width':.8,'stroke-linejoin':'round'},g);
-    boardNS('path',{d:'M8-1l3 2',class:'knife-hilt'},g);
-    if(token.step>=57){boardNS('path',{d:'M-3 3l3 3 4-6',stroke:'#f7eed4','stroke-width':2,'fill':'none','stroke-linecap':'round','stroke-linejoin':'round'},g);}
+    const g=boardNS('g',{class:`pawn${movable?' movable':''}${state.lastCapture===`${ci}-${ti}`?' caught':''}`,transform:`translate(${x} ${y})`,tabindex:movable?'0':'-1',role:movable?'button':undefined,'aria-label':`${crew.name} thief ${ti+1}, wearing a ${crew.name.toLowerCase()} hood and carrying a small prop knife${movable?', tap to move':''}`,'data-ci':ci,'data-ti':ti},parent);
+    if(movable)boardNS('circle',{cx:0,cy:1,r:18,fill:'none',stroke:'#ffe390','stroke-width':1.5,'stroke-dasharray':'3 2'},g);
+    // A tiny, dimensional masked thief: boots, layered tunic, hood and a harmless prop dagger.
+    boardNS('ellipse',{cx:0,cy:13,rx:12,ry:4,class:'pawn-shadow'},g);
+    boardNS('path',{d:'M-7 7-6 12Q-7 15-4 15H-1L0 12 1 15H5Q8 14 6 11L5 7Z',fill:'#262a25',stroke:'#171b18','stroke-width':1},g);
+    boardNS('path',{d:'M-4 5H4L5 11 1 12 0 9-2 12-6 10Z',fill:'#3c4239',stroke:'#22291f','stroke-width':.8},g);
+    boardNS('path',{d:'M-6-4Q-8-2-8 3L-6 9Q0 12 6 9L8 2Q7-3 5-5Z',fill:crew.color,stroke:'#f5e9d1','stroke-width':1.1,class:'body'},g);
+    boardNS('path',{d:'M-5-3Q-2-5 0-4L-1 8-5 8-7 3Z',fill:'#fff4d8',opacity:.22},g);
+    boardNS('path',{d:'M1-4Q5-3 6 1L5 8 1 9Z',fill:'#17231c',opacity:.22},g);
+    boardNS('path',{d:'M-5 3Q0 5 5 3M-4 6Q0 7 4 6',fill:'none',stroke:'#263128','stroke-width':1.2},g);
+    boardNS('path',{d:'M-5-1-8 2-10 0M5-1 9-3 11-1',fill:'none',stroke:crew.color,'stroke-width':3,'stroke-linecap':'round','stroke-linejoin':'round'},g);
+    boardNS('circle',{cx:-10,cy:0,r:2.1,fill:'#dbc7a0',stroke:'#8f7857','stroke-width':.6},g);
+    // Faceted hood frames the eyes; the lower face is covered by a soft cloth mask.
+    boardNS('path',{d:'M-8-8Q-9-16-2-18L5-16 9-8 7-1 4 1H-5L-8-2Z',fill:'#26352b',stroke:'#17241d','stroke-width':1.2,'stroke-linejoin':'round'},g);
+    boardNS('path',{d:'M-6-9Q-4-15 1-15L6-10 5-7H-5Z',fill:'#394a3b'},g);
+    boardNS('path',{d:'M-5-7Q0-10 6-7L5-3Q0-1-5-3Z',fill:'#dbc7a0',stroke:'#9d8764','stroke-width':.7},g);
+    boardNS('path',{d:'M-5-6l4 1M2-5l3-1',stroke:'#26352b','stroke-width':1.4,'stroke-linecap':'round'},g);
+    boardNS('circle',{cx:-2.8,cy:-5.5,r:.75,fill:'#fff3d4'},g);boardNS('circle',{cx:3.1,cy:-5.5,r:.75,fill:'#fff3d4'},g);
+    boardNS('path',{d:'M-6-2Q0-4 6-2L5 1Q0 3-5 1Z',fill:'#596252',stroke:'#202a22','stroke-width':.6},g);
+    boardNS('path',{d:'M-5-15Q0-20 6-15L9-8 5-10 1-13-4-10-8-8Z',fill:'#1b2820',stroke:'#101a15','stroke-width':1,'stroke-linejoin':'round'},g);
+    boardNS('path',{d:'M-4-14Q0-17 4-15',fill:'none',stroke:'#687560','stroke-width':1.1,'stroke-linecap':'round'},g);
+    // Small silver toy dagger, held upright and away from the character.
+    boardNS('path',{d:'M8-3 11-6 13-13 15-19 17-13 14-5 11-1Z',fill:'#dce4df',stroke:'#fff4d8','stroke-width':.8,'stroke-linejoin':'round'},g);
+    boardNS('path',{d:'M12-6 15-5M10-3 13-1',fill:'none',stroke:'#8d6741','stroke-width':1.6,'stroke-linecap':'round'},g);
+    boardNS('path',{d:'M10-5 13-4',fill:'none',stroke:'#25251f','stroke-width':1.1,'stroke-linecap':'round'},g);
+    if(token.step>=57)boardNS('path',{d:'M-3 4l3 3 4-6',stroke:'#f7eed4','stroke-width':2,'fill':'none','stroke-linecap':'round','stroke-linejoin':'round'},g);
     if(captureThreat(ci,ti)||state.lastCapture===`${ci}-${ti}`){
-      const badge=boardNS('g',{class:'backstab visible',transform:'translate(8 6)'},g);
+      const badge=boardNS('g',{class:'backstab visible',transform:'translate(10 7)'},g);
       boardNS('circle',{cx:0,cy:0,r:6,class:'backstab-disc'},badge);
       boardNS('path',{d:'M-2 2 2-2M-2-2l4 4'},badge);
     }
