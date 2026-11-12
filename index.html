@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101c18">
+  <title>Backyard Rogues — Ludo After Dark</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Backyard Rogues home">
+        <span class="brand-mark"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M18 3 31 10.5v15L18 33 5 25.5v-15L18 3Z"/><path d="m18 9 7 4v9l-7 4-7-4v-9l7-4Z"/><path d="m14 18 3 3 6-7"/></svg></span>
+        <span class="brand-copy"><strong>BACKYARD<br>ROGUES</strong><small>THE NEIGHBORHOOD GAME</small></span>
+      </a>
+      <div class="top-center"><span class="live-dot"></span> AFTER HOURS <i>•</i> THE GARDEN TABLE</div>
+      <button class="icon-btn sound-toggle" id="soundToggle" aria-label="Toggle sound" title="Toggle sound">♫</button>
+    </header>
+
+    <section class="intro">
+      <div><p class="eyebrow"><span>01</span> A LITTLE FRIENDLY MISCHIEF</p><h1>One yard.<br><em>No alibis.</em></h1></div>
+      <p class="intro-note">Sneak your crew around the garden and<br>get every rascal safely back inside.</p>
+    </section>
+
+    <section class="game-layout" aria-label="Ludo game">
+      <div class="board-column">
+        <div class="board-topline"><div class="board-label"><span class="sun-icon">✳</span> THE OLD OAK BOARD <span class="board-sub">· 4 CREWS</span></div><div class="turn-pill" id="turnPill"><span class="turn-dot"></span><span id="turnPillText">YOUR TURN</span></div></div>
+        <div class="board-frame">
+          <div class="board-screws"><i></i><i></i><i></i><i></i></div>
+          <svg id="board" viewBox="0 0 600 600" role="img" aria-label="Ludo board with backyard grass path and four crew houses"></svg>
+          <div class="board-caption"><span>EST. AT THE OAK TREE</span><span>NO. 04 — MIDNIGHT EDITION</span></div>
+        </div>
+        <div class="board-legend"><span><i class="legend-grass"></i>BACKYARD PATH</span><span><i class="legend-safe">✳</i>SAFE PATCH</span><span><i class="legend-home">⌂</i>THE HIDEOUT</span></div>
+      </div>
+
+      <aside class="control-panel">
+        <div class="panel-heading"><div><p class="eyebrow">THE MOVE</p><h2 id="statusTitle">Roll to begin</h2></div><span class="round-count" id="roundCount">ROUND 01</span></div>
+        <div class="dice-stage" id="diceStage">
+          <div class="dice-shadow"></div>
+          <button class="die" id="die" aria-label="Roll the dice"><span class="pip-grid" id="pipGrid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></button>
+          <div class="dice-hint" id="diceHint">YOUR LUCK IS WAITING</div>
+        </div>
+        <button class="roll-btn" id="rollBtn"><span>ROLL THE DICE</span><span class="btn-arrow">↗</span></button>
+        <div class="move-message" id="moveMessage" aria-live="polite">Bring a rogue out of hiding with a six.</div>
+        <div class="roster-heading"><span>THE CREWS</span><span>HOME / OUT</span></div>
+        <div class="roster" id="roster"></div>
+        <div class="event-card" id="eventCard"><span class="event-icon">✦</span><div><strong>Yard gossip</strong><p id="eventText">The neighbors are asleep. Probably.</p></div></div>
+        <div class="panel-footer"><button class="text-btn" id="newGameBtn">↻ &nbsp; NEW GAME</button><button class="text-btn" id="rulesBtn">HOW TO PLAY &nbsp; ↗</button></div>
+      </aside>
+    </section>
+    <footer class="page-footer"><span>KEEP IT CUTE. KEEP IT CLEVER.</span><span>DESIGNED FOR THE AFTER-HOURS CROWD <b>✳</b></span></footer>
+  </main>
+
+  <div class="modal-backdrop" id="modalBackdrop" hidden>
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button class="modal-close" id="modalClose" aria-label="Close">×</button><p class="eyebrow">THE NEIGHBORHOOD CODE</p><h2 id="modalTitle">How to play</h2><p>Roll a six to let a rogue slip out of its hideout. Move clockwise around the grass path, then guide your crew up its colored lane and into the oak-tree center.</p><ul><li>Tap a highlighted rogue to move it. You get another roll on a six.</li><li>Land on a rival to send them back to their house. Marked patches are safe.</li><li>Get all four rogues home first to win. Exact rolls are needed for the final step.</li></ul><p class="note-line">A playful, no-gore game of backyard skulduggery. The tiny knives are just cartoon props.</p><button class="roll-btn modal-ok" id="modalOk"><span>GOT IT</span><span class="btn-arrow">✓</span></button></section>
+  </div>
+  <div class="toast" id="toast" aria-live="assertive"></div>
+  <script src="game.js"></script>
+</body>
+</html>
